@@ -1,0 +1,319 @@
+/*
+Theme Name: Blank
+Theme URI:
+Description: WordPress theme starter pack for faster design and development.
+Author: Lifehacker
+Author URI: http://lifehacker.com
+Version: 0.1
+Tags: lifehacker
+
+This theme is property of Adam Dachis and is not available for public use.
+ 
+*/
+
+/*** GLOBAL : GENERAL STYLE DEFAULTS ***/
+html
+{
+	margin: 0;
+	padding: 0;
+}
+body
+{
+	background: #4CFFAC;
+	margin: 0;
+}
+body, input, textarea
+{
+	color: black;    
+	font-family: Helvetica, sans-serif;
+	line-height: 1.5;
+}
+h1, h2, h3, h4, h5, h6
+{ 
+	font-weight: normal;
+	clear: both;
+	margin: 0px;
+}
+hr
+{
+	background-color: #999;
+	border: 0;
+	height: 1px;
+	margin-bottom: 1.5em;
+}
+pre
+{
+	font: 11px Monaco, monospace;
+	line-height: 1.5;
+	margin-bottom: 1.5em;
+}
+code
+{
+	font: 11px Monaco, monospace;
+}
+p
+{
+	margin: 4px 0 12px 0;
+}
+a
+{
+	color: #227F54;
+	text-decoration: none;
+}
+a:hover
+{
+	color: #007F44;
+}
+a:visited
+{
+	color: #00CC6D;
+}
+
+
+
+/*** PAGE LAYOUT ***/
+
+/* Styles that affect the entire layout of the page */
+div#container
+{
+	margin: 4px 4px 4px 4px;
+}
+div#content
+{
+	width: 1200px;
+	margin: auto;
+}
+
+
+/*** HEADER : MENU ***/
+
+/* To see a menu in your header, you'll need to first add one in WordPress Admin */
+
+.menu ul
+{
+	background: #227F54;
+    list-style: none;
+    margin: 0;
+}
+.menu ul ul
+{
+    display: none;
+}
+.menu li
+{
+    display: inline;
+    float: left;
+	padding: 0 8px;
+}
+.menu-item
+{
+		background: #227F54;
+}
+.menu-item a
+{
+	font-size: 20px;
+	text-decoration: none;
+	color: #4CFFAC;
+}
+.menu-item a:hover
+{
+	color: #00FF88;
+}
+
+
+
+/*** HEADER : OTHER ***/
+
+#header 
+{
+	width: 1200px;
+	margin: auto;
+	height: 300px;
+}
+
+#name, #login
+{
+	padding: 1%;
+	margin: 1%;
+	background:white;
+	height: 80px;
+}
+
+#name
+{
+	width: 61%;
+	float: left;
+}
+
+#login
+{
+	width: 30%;
+	float: left;
+}
+
+/*** CONTENT : POSTS AND PAGES ***/
+
+/* Entry and Page Titles */
+h1.entry-title
+{
+	
+}
+h2.entry-title
+{
+	
+}
+h2.entry-title a
+{
+	
+}
+h1.page-title
+{
+	
+}
+
+/* Media Alignment */
+.alignright
+{
+	/* Style for right-aligned images in posts */
+	padding: 8px 0 8px 8px;
+	float: right;
+}
+.alignleft
+{
+	/* Style for left-aligned images in posts */
+	padding: 8px 8px 8px 0;
+	float: left;
+}
+
+/* Entry Content */
+.page
+{
+	padding: 0 10px;
+}
+.entry-content
+{
+	/* Style that affects actual entry/post content */
+	
+}
+.entry-content a
+{
+	
+}
+.entry-content a:hover
+{
+	
+}
+.entry-content h1, h2, h3, h4, h5
+{
+	
+}
+.entry-content ol li
+{
+	
+}
+
+.entry-utility
+{
+	/* Style for the entry utility, which sits below a post and provides info like categories, tags, feeds, and an edit link (for authors) */
+}
+.entry-meta
+{
+	/* Style for the entry metadata (author, etc.) */
+}
+.skip-link
+{
+	/* Style for the skip link */
+	/*position: absolute;
+	left: -9000px;*/
+}
+.navigation
+{
+	/* Style for the navigation links (next/previous post) on a given post */
+}
+
+
+/*** CONTENT : COMMENTS ***/
+
+div#comments
+{
+	/* Style that affects the DIV containing all the comments */
+}
+.comments h3
+{
+	/* H3 header style for comments */
+}
+.comments ol
+{
+	/* Comments are displayed as ordered lists by default, so you want to style that list so it looks the way you want */
+}
+.comments ol li
+{
+	/* Style each list item in the comments ordered list */
+}
+.comments img
+{
+	/* Style for the user avatar beside each comment */
+	float: left;
+	margin: 0 12px 8px 0;
+}
+.comments .comment
+{
+	/* Style that applies to each individual comment in a series of comments */
+}
+
+.children ul li
+{
+	/* A style that refers to the children (as in, responses to) any given comment */
+}
+
+.comment-reply-link
+{
+	/* Style for the "Reply" link on a comment */
+}
+.comment-meta
+{
+	/* Style for metadata for a comment */
+}
+div#respond
+{
+	/* DIV that contains the comment response form */
+}
+div#respond h3
+{
+	/* H3 header for the comment response form */
+}
+
+
+/*** CONTENT : SIDEBAR ***/
+div#primary
+{
+	/* Primary Widget Area DIV */
+}
+div#secondary
+{
+	/* Secondary Widget Area DIV */
+}
+.widget-area
+{
+	/* Class that applies to BOTH widget areas */
+}
+.xoxo
+{
+	/* Class that applies to each item in each widget area (an unordered list class) */
+}
+
+
+/*** FOOTER ***/
+div#footer
+{
+	width: 1200px;
+	margin: auto;
+	clear: both;
+	padding: 0 10px;
+}
+
+
+/*** YOUR CSS ***/
+
+
+
