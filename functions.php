@@ -2,7 +2,7 @@
 	// Make theme available for translation
 	// Translations can be filed in the /languages/ directory
 	load_theme_textdomain( 'hbd-theme', TEMPLATEPATH . '/languages' );
-	
+
 	add_theme_support( 'menus' );
 
 	$locale = get_locale();
@@ -45,7 +45,7 @@
 	            endif;
 	        ?>
 	<?php } // end custom_comments
-	
+
 	// Custom callback to list pings
 	function custom_pings($comment, $args, $depth) {
 	       $GLOBALS['comment'] = $comment;
@@ -61,7 +61,7 @@
 	                <?php comment_text() ?>
 	            </div>
 	<?php } // end custom_pings
-	
+
 	// Produces an avatar image with the hCard-compliant photo class
 	function commenter_link() {
 	    $commenter = get_comment_author_link();
@@ -74,7 +74,7 @@
 	    $avatar = str_replace( "class='avatar", "class='photo avatar", get_avatar( $avatar_email, 80 ) );
 	    echo $avatar . ' <span class="fn n">' . $commenter . '</span>';
 	} // end commenter_link
-	
+
 	// For category lists on category archives: Returns other categories except the current one (redundant)
 	function cats_meow($glue) {
 	    $current_cat = single_cat_title( '', false );
@@ -91,7 +91,7 @@
 
 	    return trim(join( $glue, $cats ));
 	} // end cats_meow
-	
+
 	// For tag lists on tag archives: Returns other tags except the current one (redundant)
 	function tag_ur_it($glue) {
 	    $current_tag = single_tag_title( '', '',  false );
@@ -108,7 +108,7 @@
 
 	    return trim(join( $glue, $tags ));
 	} // end tag_ur_it
-	
+
 	// Register widgetized areas
 	function theme_widgets_init() {
 	    // Area 1
@@ -133,7 +133,7 @@
 	} // end theme_widgets_init
 
 	add_action( 'init', 'theme_widgets_init' );
-	
+
 	$preset_widgets = array (
 	    'primary_widget_area'  => array( 'search', 'pages', 'categories', 'archives' ),
 	    'secondary_widget_area'  => array( 'links', 'meta' )
@@ -142,7 +142,7 @@
 	    update_option( 'sidebars_widgets', $preset_widgets );
 	}
 	// update_option( 'sidebars_widgets', NULL );
-	
+
 	// Check for static widgets in widget-ready areas
 	function is_sidebar_active( $index ){
 	  global $wp_registered_sidebars;
@@ -155,40 +155,160 @@
 	} // end is_sidebar_active
 
 	function blank_customize_register( $wp_customize ) {
-	//All our sections, settings, and controls will be added here
-	$colors = array();
-	$colors[] = array(
-		'slug'=>'content_text_color', 
-		'default' => '#333',
-		'label' => __('Content Text Color', 'Blank')
-	);
-	$colors[] = array(
-		'slug'=>'content_link_color', 
-		'default' => '#88C34B',
-		'label' => __('Content Link Color', 'Blank')
-	);
-	foreach( $colors as $color ) {
-		// SETTINGS
-		$wp_customize->add_setting(
-			$color['slug'], array(
-				'default' => $color['default'],
-				'type' => 'option', 
-				'capability' => 
-				'edit_theme_options'
-			)
-		);
-		// CONTROLS
-		$wp_customize->add_control(
-			new WP_Customize_Color_Control(
-				$wp_customize,
-				$color['slug'], 
-				array('label' => $color['label'], 
-				'section' => 'colors',
-				'settings' => $color['slug'])
-			)
-		);
-	}
+        //All our sections, settings, and controls will be added here
+        $colors = array();
+        $colors[] = array(
+            'slug'=>'content_text_color', 
+            'default' => '#333',
+            'label' => __('Content Text Color', 'Blank')
+        );
+        $colors[] = array(
+            'slug'=>'content_link_color', 
+            'default' => '#88C34B',
+            'label' => __('Content Link Color', 'Blank')
+        );
+        foreach( $colors as $color ) {
+            // SETTINGS
+            $wp_customize->add_setting(
+                $color['slug'], array(
+                    'default' => $color['default'],
+                    'type' => 'option', 
+                    'capability' => 
+                    'edit_theme_options'
+                )
+            );
+            // CONTROLS
+            $wp_customize->add_control(
+                new WP_Customize_Color_Control(
+                    $wp_customize,
+                    $color['slug'], 
+                    array('label' => $color['label'], 
+                    'section' => 'colors',
+                    'settings' => $color['slug'])
+                )
+            );
+        }
 	}
 	add_action( 'customize_register', 'blank_customize_register' );
-	
-	?>
+
+    //////////////////////////////////////////////////////////////////////////
+    /////////////////////////////Custom Sections//////////////////////////////
+    //////////////////////////////////////////////////////////////////////////
+    
+    /*
+        Site name:
+            Logo
+            Church Name
+        Contact:
+            Address
+            Phone
+            Email
+            Social Media
+        Featured Image:
+            Presets
+            Upload
+        Welcome/Statement of Belief:
+            Text
+        Worship Times:
+            Text
+        Color Scheme:
+            Options
+    */
+    
+    class customize_Contact_Control extends WP_Customize_Control {
+        public $type = 'textarea';
+        public function render_content() {
+    ?>
+        <label>
+            <span class="customize-contact-title"><?php echo esc_html( $this->label ); ?></span>
+            <textarea rows="5" style="width:100%;" <?php $this->link(); ?> > <?php echo esc_textarea( $this->value() ); ?></textarea>
+        </label>
+    <?php
+        }
+    }
+    $wp_customize->add_setting('contact_setting', array('default' => 'default text',));
+    $wp_customize->add_control(new customize_Contact_Control($wp_customize, 'contact_setting', array(
+        'label' => 'Contact',
+        'section' => 'contact',
+        'settings' => 'contact_setting',
+    )));
+    $wp_customize->add_section('contact' , array(
+        'title' => __('Contact',''),
+        'priority' => 20,
+    ));
+    
+    
+    
+    class customize_Featured_Image_Control extends WP_Customize_Control {
+        public $type = 'textarea';
+        public function render_content() {
+    ?>
+        <label>
+            <span class="customize-image-title"><?php echo esc_html( $this->label ); ?></span>
+            <textarea rows="5" style="width:100%;" <?php $this->link(); ?> > <?php echo esc_textarea( $this->value() ); ?></textarea>
+        </label>
+    <?php
+        }
+    }
+    $wp_customize->add_setting('featured_image_setting', array('default' => 'default text',));
+    $wp_customize->add_control(new customize_Featured_Image_Control($wp_customize, 'featured_image_setting', array(
+        'label' => 'Featured Image',
+        'section' => 'featuredimage',
+        'settings' => 'featured_image_setting',
+    )));
+    $wp_customize->add_section('featuredimage' , array(
+        'title' => __('Featured Image',''),
+        'priority' => 30,
+    ));
+    
+    
+    
+    class customize_Welcome_Control extends WP_Customize_Control {
+        public $type = 'textarea';
+        public function render_content() {
+    ?>
+        <label>
+            <span class="customize-welcome-title"><?php echo esc_html( $this->label ); ?></span>
+            <textarea rows="5" style="width:100%;" <?php $this->link(); ?> > <?php echo esc_textarea( $this->value() ); ?></textarea>
+        </label>
+    <?php
+        }
+    }
+    $wp_customize->add_setting('welcome_setting', array('default' => 'default text',));
+    $wp_customize->add_control(new customize_Welcome_Control($wp_customize, 'welcome_setting', array(
+        'label' => 'Welcome/Statment of Belief',
+        'section' => 'welcome',
+        'settings' => 'welcome_setting',
+    )));
+    $wp_customize->add_section('welcome' , array(
+        'title' => __('Welcome/Statement of Belief',''),
+        'priority' => 40,
+    ));
+   
+   
+   
+   class customize_Worship_Times_Control extends WP_Customize_Control {
+        public $type = 'textarea';
+        public function render_content() {
+    ?>
+
+        <label>
+            <span class="customize-worship-title"><?php echo esc_html( $this->label ); ?></span>
+            <textarea rows="5" style="width:100%;" <?php $this->link(); ?> > <?php echo esc_textarea( $this->value() ); ?></textarea>
+        </label>
+
+    <?php
+        }
+    }
+    $wp_customize->add_setting('worship_setting', array('default' => 'default text',));
+    $wp_customize->add_control(new customize_Worship_Times_Control($wp_customize, 'worship_setting', array(
+        'label' => 'Worship Times',
+        'section' => 'worship',
+        'settings' => 'worship_setting',
+    )));
+    $wp_customize->add_section('worship' , array(
+        'title' => __('Worship Times',''),
+        'priority' => 50,
+    ));
+   
+?>
