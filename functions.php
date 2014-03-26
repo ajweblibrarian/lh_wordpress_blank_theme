@@ -250,12 +250,14 @@
     <?php
         }
     }
-    $wp_customize->add_setting('featured_image_setting', array('default' => 'default text',));
-    $wp_customize->add_control(new customize_Featured_Image_Control($wp_customize, 'featured_image_setting', array(
-        'label' => 'Featured Image',
-        'section' => 'featuredimage',
-        'settings' => 'featured_image_setting',
-    )));
+    $wp_customize->add_setting( 'img-upload' );
+ 
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize,'img-upload',array(
+            'label' => 'Upload Featured Image',
+            'section' => 'featuredimage',
+            'settings' => 'img-upload'
+        )));
+        
     $wp_customize->add_section('featuredimage' , array(
         'title' => __('Featured Image',''),
         'priority' => 30,
